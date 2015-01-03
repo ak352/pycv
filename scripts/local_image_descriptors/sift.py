@@ -2,7 +2,8 @@ from PIL import Image
 import os
 from numpy import *
 from pylab import *
-
+import sys
+sys.path.append("../../tools/vlfeat-0.9.19/bin/maci64/")
 
 def process_image(imagename,resultname,params="--edge-thresh 10 --peak-thresh 5"):
     """ Process an image and save the results in a file. """
@@ -13,7 +14,7 @@ def process_image(imagename,resultname,params="--edge-thresh 10 --peak-thresh 5"
         im.save('tmp.pgm')
         imagename = 'tmp.pgm'
 
-    cmmd = str("sift "+imagename+" --output="+resultname+
+    cmmd = str("../../tools/vlfeat-0.9.19/bin/maci64/sift "+imagename+" --output="+resultname+
                 " "+params)
     os.system(cmmd)
     print 'processed', imagename, 'to', resultname

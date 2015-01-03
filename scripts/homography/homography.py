@@ -1,5 +1,59 @@
 from numpy import * 
 
+class RansacModel(object):
+    """ Class for testing homography fit with ransac.py """
+    def __init__(self, debug=False):
+        self.debug = debug
+
+    def fit(self, data):
+        """ Fit homography to four selected correspondences. """
+        # transpose to fit H_from_points()
+        data = data.T
+        # from points
+        fp = data[:3, :4]
+        #target points
+        tp = data[3:, :4]
+        
+        #fit homography and return
+        return H_from_points(fp, tp)
+    
+    def get_error(self, data, H):
+        """ Apply homography to all correspondences,
+        return error for each transformed point. """
+        
+        data = data.T
+        
+        # from points
+        fp = data[:3]
+        # target points
+        tp = data[3:]
+
+        # transform fp
+        fp_transformed = dot(H, fp)
+        
+        #normalise hom. coordinates
+        fp_transformed = normalize(fp_transformed)
+        
+        # return error per point
+        return sqrt(sum((tp-fp_transformed)**2, axis=0))
+
+def H_from_ransac(fp,tp,model,maxiter=1000,match_theshold=10):
+    """ Robust estimation of homography H from point 
+        correspondences using RANSAC (ransac.py from
+        http://www.scipy.org/Cookbook/RANSAC).
+        
+        input: fp,tp (3*n arrays) points in hom. coordinates. """
+    
+    import ransac
+    
+    # group corresponding points
+    data = vstack((fp,tp))
+    
+    # compute H and return
+    H,ransac_data = ransac.ransac(data.T,model,4,maxiter,match_theshold,10,return_all=True)
+    return H,ransac_data['inliers']
+
+
 def normalize(points):
     """ Normalize a collection of homogeneous coordinates so that the last row = 1 """
     for row in points:
