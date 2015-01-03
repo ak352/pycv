@@ -46,8 +46,7 @@ def rotation_matrix(a):
     """ Creates a 3D rotation matrix for rotation 
     aorund the axis of the vector a. """
     R = eye(4)
-    R[:3, :3] = linalg.expm([[0, -a[2], a[1]], \
-                                 [a[2], 0, -a[0]],[-a[1], a[0], 0]])
+    R[:3, :3] = linalg.expm([[0, -a[2], a[1]], [a[2], 0, -a[0]],[-a[1], a[0], 0]])
     return R
 
 def rq(A):
