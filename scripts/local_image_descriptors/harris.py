@@ -57,8 +57,9 @@ def get_harris_points(harrisim, min_dist = 10, threshold = 0.1):
 if __name__=="__main__":
     infiles = []
     num_pics = 1
-    for k in range(5040,5040+num_pics): #5050):
-        infiles.append("/Users/abhimanyu.krishna/Pictures/Bali Malaysia Singapore 2014/IMG_%s.JPG" % str(k))
+    infiles = ["../../data/lab.jpg"]
+    #for k in range(5040,5040+num_pics): #5050):
+    #    infiles.append("/Users/abhimanyu.krishna/Pictures/Bali Malaysia Singapore 2014/IMG_%s.JPG" % str(k))
         
     figure()
     gray()
@@ -74,7 +75,7 @@ if __name__=="__main__":
         imshow(img)
         plot([p[1] for p in filtered_coords], [p[0] for p in filtered_coords], '*')
         axis('off')
-    #show()
+    show()
 
     
 
