@@ -20,7 +20,7 @@ fp = homography.make_homog(l0[ndx,:2].T)
 ndx2 = [int(matches[i]) for i in ndx]
 tp = homography.make_homog(l1[ndx2,:2].T)
 model = homography.RansacModel()
-H = homography.H_from_ransac(fp,tp,model)
+H,ransac_data = homography.H_from_ransac(fp,tp,model)
 
 
 # camera calibration
@@ -32,6 +32,7 @@ cam1 = camera.Camera( hstack((K,dot(K,array([[0],[0],[-1]])) )) )
 # first points are the bottom square
 box_cam1 = cam1.project(homography.make_homog(box[:,:5]))
 # use H to transfer points to the second image
+print dot(H,box_cam1)
 box_trans = homography.normalize(dot(H,box_cam1))
 # compute second camera matrix from cam1 and H
 cam2 = camera.Camera(dot(H,cam1.P))
@@ -44,3 +45,8 @@ box_cam2 = cam2.project(homography.make_homog(box))
 point = array([1,1,0,1]).T
 print homography.normalize(dot(dot(H,cam1.P),point))
 print cam2.project(point)
+
+import pickle
+with open('../../data/ar_camera.pkl','w') as f:
+    pickle.dump(K,f)
+    pickle.dump(dot(linalg.inv(K),cam2.P),f)

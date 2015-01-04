@@ -3,7 +3,8 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import pygame, pygame.image
 from pygame.locals import *
-
+from numpy import *
+from scipy import *
 
 def set_projection_from_camera(K, width, height):
     """ Set view from a camera calibration matrix """
@@ -86,7 +87,7 @@ def draw_background(imname):
     # clear the texture
     glDeleteTextures(1)
 
-def draw_teapot(size):
+def draw_teapot(size, angle=[0,0,0]):
     """ Draw a red teapot at the origin """
     glEnable(GL_LIGHTING)
     glEnable(GL_LIGHT0)
@@ -98,6 +99,8 @@ def draw_teapot(size):
     glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.5, 0.0, 0.0, 1.0])
     glMaterialfv(GL_FRONT, GL_SPECULAR, [0.7, 0.6, 0.6, 1.0])
     glMaterialf(GL_FRONT, GL_SHININESS, 0.25*128.0)
+    glRotatef(angle[0], 1, 0, 0)
+    glRotatef(angle[1], 0, 1, 0)
     glutSolidTeapot(size)
 
 
