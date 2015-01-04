@@ -87,7 +87,7 @@ def draw_background(imname):
     # clear the texture
     glDeleteTextures(1)
 
-def draw_teapot(size, angle=[0,0,0]):
+def draw_teapot(size, angle=[0,0,0], pos = [0,0,0]):
     """ Draw a red teapot at the origin """
     glEnable(GL_LIGHTING)
     glEnable(GL_LIGHT0)
@@ -95,12 +95,20 @@ def draw_teapot(size, angle=[0,0,0]):
     glClear(GL_DEPTH_BUFFER_BIT)
     
     # draw red teapot
-    glMaterialfv(GL_FRONT, GL_AMBIENT, [0,0,0,1.0])
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.5, 0.0, 0.0, 1.0])
-    glMaterialfv(GL_FRONT, GL_SPECULAR, [0.7, 0.6, 0.6, 1.0])
+    glMaterialfv(GL_FRONT, GL_AMBIENT, [0,0,0,0.0])
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.5, 0.0, 0.0, 0.0])
+    glMaterialfv(GL_FRONT, GL_SPECULAR, [0.7, 0.6, 0.6, 0.0])
     glMaterialf(GL_FRONT, GL_SHININESS, 0.25*128.0)
+    
+    # Rotation
     glRotatef(angle[0], 1, 0, 0)
     glRotatef(angle[1], 0, 1, 0)
-    glutSolidTeapot(size)
+    glRotatef(angle[1], 0, 1, 0)
+    
+    # Translation
+    glTranslatef(pos[0], pos[1], pos[2])
 
+    #glutWireTeapot(size)
+    glutSolidTeapot(size)
+    #glutSwapBuffers()
 
