@@ -32,7 +32,7 @@ class Camera(object):
         self.t = dot(linalg.inv(self.K), self.P[:,3])
         
     def center(self):
-        """ Comput and return the camera center """
+        """ Compute and return the camera center """
         if self.c is not None:
             return self.c
         else:

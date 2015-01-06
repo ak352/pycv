@@ -8,10 +8,17 @@ import sift
 import cube
 from numpy import *
 
+im1 = "../../data/mag_front.jpg"
+im2 = "../../data/mag_perspective.jpg"
+im1 = "../../data/book_frontal.JPG"
+im2 = "../../data/book_perspective.JPG"
 # compute features                                                        
-sift.process_image('../../data/book_frontal.JPG','../../data/im0.sift')
+#sift.process_image('../../data/book_frontal.JPG','../../data/im0.sift')
+sift.process_image(im1,'../../data/im0.sift')
+
 l0,d0 = sift.read_features_from_file('../../data/im0.sift')
-sift.process_image('../../data/book_perspective.JPG','../../data/im1.sift')
+#sift.process_image('../../data/book_perspective.JPG','../../data/im1.sift')
+sift.process_image(im2,'../../data/im1.sift')
 l1,d1 = sift.read_features_from_file('../../data/im1.sift')
 # match features and estimate homography                                        
 matches = sift.match_twosided(d0,d1)

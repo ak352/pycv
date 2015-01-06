@@ -8,7 +8,9 @@ import time
 from scipy import *
 from numpy import *
 
+
 width,height=1000,747
+#width,height = 2048,1152
 
 def setup():
     """ Setup window and pygame environment """
@@ -36,12 +38,14 @@ def draw_teapots():
 
 if __name__=="__main__":
     # load camera data
-    with open("../../data/ar_camera.pkl", "r") as f:
+    #with open("../../data/ar_camera.pkl", "r") as f:
+    with open("../../data/ar_camera_mag.pkl", "r") as f:
         K = pickle.load(f)
         Rt = pickle.load(f)
 
     setup()
-    img = '../../data/book_perspective.jpg'
+    #img = '../../data/book_perspective.jpg'
+    img = '../../data/mag_perspective.jpg'
     ar.draw_background(img)
     ar.set_projection_from_camera(K, width, height)
     ar.set_modelview_from_camera(Rt)

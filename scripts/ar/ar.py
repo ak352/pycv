@@ -5,6 +5,9 @@ import pygame, pygame.image
 from pygame.locals import *
 from numpy import *
 from scipy import *
+import sys
+sys.path.append("../objloader")
+import objloader
 
 def set_projection_from_camera(K, width, height):
     """ Set view from a camera calibration matrix """
@@ -65,9 +68,9 @@ def draw_background(imname):
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    
+
+    glEnable(GL_TEXTURE_2D)    
     # bind the texture
-    glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, glGenTextures(1))
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, \
                      0, GL_RGBA, GL_UNSIGNED_BYTE, bg_data)
@@ -86,6 +89,10 @@ def draw_background(imname):
 
     # clear the texture
     glDeleteTextures(1)
+    glDisable(GL_TEXTURE_2D)
+
+
+
 
 def draw_teapot(size, angle=[0,0,0], pos = [0,0,0]):
     """ Draw a red teapot at the origin """
@@ -103,7 +110,7 @@ def draw_teapot(size, angle=[0,0,0], pos = [0,0,0]):
     # Rotation
     glRotatef(angle[0], 1, 0, 0)
     glRotatef(angle[1], 0, 1, 0)
-    glRotatef(angle[1], 0, 1, 0)
+    glRotatef(angle[2], 0, 0, 1)
     
     # Translation
     glTranslatef(pos[0], pos[1], pos[2])
@@ -112,3 +119,40 @@ def draw_teapot(size, angle=[0,0,0], pos = [0,0,0]):
     glutSolidTeapot(size)
     #glutSwapBuffers()
 
+
+def draw_furniture(obj, size, angle=[0,0,0], pos = [0,0,0]):
+    """ Draw a red teapot at the origin """
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_DEPTH_TEST)
+    glClear(GL_DEPTH_BUFFER_BIT)
+    
+#     glMaterialfv(GL_FRONT, GL_AMBIENT, [0,0,0,0.0])
+#     glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.5, 0.0, 0.0, 0.0])
+#     glMaterialfv(GL_FRONT, GL_SPECULAR, [0.7, 0.6, 0.6, 0.0])
+#     glMaterialf(GL_FRONT, GL_SHININESS, 0.25*128.0)
+    
+    # Rotation
+    glRotatef(angle[0], 1, 0, 0)
+    glRotatef(angle[1], 0, 1, 0)
+    glRotatef(angle[2], 0, 0, 1)
+    
+    # Translation
+    glTranslatef(pos[0], pos[1], pos[2])
+
+    #obj = objloader.OBJ("Sofa_3_3ds.obj", swapyz=True)
+
+    glScalef(size, size, size)
+    glCallList(obj.gl_list)
+
+    """ All this late night reading made sense of it...
+    glDisable should be called after glEnable and uses if that feature...
+    although state switching is expensive...
+    the image was not being redrawn as GL_LIGHTING turns the image
+    texture black as it is parallel to the plane of the backgorund texture 
+    the background, http://stackoverflow.com/questions/
+    802079/should-i-call-glenable-and-gldisable-every-time-
+    i-draw-something"""
+    glDisable(GL_LIGHTING)
+    glDisable(GL_LIGHT0)
+    glDisable(GL_DEPTH_TEST)
