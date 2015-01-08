@@ -107,16 +107,18 @@ def draw_teapot(size, angle=[0,0,0], pos = [0,0,0]):
     glMaterialfv(GL_FRONT, GL_SPECULAR, [0.7, 0.6, 0.6, 0.0])
     glMaterialf(GL_FRONT, GL_SHININESS, 0.25*128.0)
     
+    # Translation
+    glTranslatef(pos[0], pos[1], pos[2])
+
     # Rotation
     glRotatef(angle[0], 1, 0, 0)
     glRotatef(angle[1], 0, 1, 0)
     glRotatef(angle[2], 0, 0, 1)
     
-    # Translation
-    glTranslatef(pos[0], pos[1], pos[2])
 
     #glutWireTeapot(size)
     glutSolidTeapot(size)
+    glDisable(GL_LIGHTING)
     #glutSwapBuffers()
 
 
@@ -125,6 +127,9 @@ def draw_furniture(obj, size, angle=[0,0,0], pos = [0,0,0]):
     glEnable(GL_LIGHTING)
     glEnable(GL_LIGHT0)
     glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    glEnable(GL_DEPTH_TEST)
+    glShadeModel(GL_SMOOTH)  
     glClear(GL_DEPTH_BUFFER_BIT)
     
 #     glMaterialfv(GL_FRONT, GL_AMBIENT, [0,0,0,0.0])
@@ -132,13 +137,14 @@ def draw_furniture(obj, size, angle=[0,0,0], pos = [0,0,0]):
 #     glMaterialfv(GL_FRONT, GL_SPECULAR, [0.7, 0.6, 0.6, 0.0])
 #     glMaterialf(GL_FRONT, GL_SHININESS, 0.25*128.0)
     
+    
+    # Translation
+    glTranslatef(pos[0], pos[1], pos[2])
+
     # Rotation
     glRotatef(angle[0], 1, 0, 0)
     glRotatef(angle[1], 0, 1, 0)
     glRotatef(angle[2], 0, 0, 1)
-    
-    # Translation
-    glTranslatef(pos[0], pos[1], pos[2])
 
     #obj = objloader.OBJ("Sofa_3_3ds.obj", swapyz=True)
 
@@ -156,3 +162,7 @@ def draw_furniture(obj, size, angle=[0,0,0], pos = [0,0,0]):
     glDisable(GL_LIGHTING)
     glDisable(GL_LIGHT0)
     glDisable(GL_DEPTH_TEST)
+    glDisable(GL_COLOR_MATERIAL)
+    glDisable(GL_DEPTH_TEST)
+
+
