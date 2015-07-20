@@ -1,5 +1,8 @@
 ### Homography
 
+
+```test_book.py`` takes SIFT features from a frontal view of a book and a perspective view of the same book and computes the homography from the SIFT matches.
+
 ```homography.py```
 1. ```make_homog(x)``` converts the set of points in x to homogeneous coordinates.
 2. ```H_from_points(fp, tp)``` finds a homography H such that fp maps to tp using the DLT (direct linear transform) method.
