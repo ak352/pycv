@@ -50,7 +50,7 @@ if __name__=="__main__":
     ar.set_projection_from_camera(K, width, height)
     ar.set_modelview_from_camera(Rt)
     ar.draw_teapot(0.1)
-    draw_teapots()
+    #draw_teapots()
     pygame.display.flip()
 
     clock = pygame.time.Clock()

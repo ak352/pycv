@@ -58,8 +58,8 @@ if __name__=="__main__":
     ar.set_modelview_from_camera(Rt)
 
     """ Load once into memory as this is time-taking """
-    #obj = objloader.OBJ("toyplane.obj")
-    obj = objloader.OBJ("Sofa_3_3ds.obj")
+    obj = objloader.OBJ("toyplane.obj")
+    #obj = objloader.OBJ("Sofa_3_3ds.obj")
     #obj_2 = objloader.OBJ("toyplane.obj")
 #     obj = None
 #     with open("../objloader/toyplane.pkl", 'rb') as input:
