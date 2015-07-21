@@ -38,7 +38,7 @@ class Camera(object):
         else:
             # comput c by factoring
             self.factor()
-            self.c = -dot(self.R.T, self.t) # Why?
+            self.c = -dot(self.R.T, self.t) # Why? See readme.
             return self.c
 
 # helper functions    
