@@ -39,7 +39,7 @@ def draw_teapots():
 if __name__=="__main__":
     # load camera data
     #with open("../../data/ar_camera.pkl", "r") as f:
-    with open("../../data/ar_camera_mag.pkl", "r") as f:
+    with open("../../data/ar_camera_mag.pkl", "rb") as f:
         K = pickle.load(f)
         Rt = pickle.load(f)
 
