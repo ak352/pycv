@@ -28,6 +28,17 @@ def rotate(degrees, K, Rt, width, height, img):
     draw_teapots()
     pygame.display.flip()
 
+def translate(displacement, K, Rt, width, height, img):
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    ar.draw_background(img)
+    ar.set_projection_from_camera(K, width, height)
+    ar.set_modelview_from_camera(Rt)
+    ar.draw_teapot(0.1, [0,0,0], displacement)
+    draw_teapots()
+    pygame.display.flip()
+
+
 def draw_teapots():
     for i in [0.2, 0, -0.2]:
         for j in [0.2, 0, -0.2]:
