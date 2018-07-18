@@ -65,27 +65,44 @@ if __name__=="__main__":
     pygame.display.flip()
 
     clock = pygame.time.Clock()
-    degrees = [0,0,0]
+    change = [0.0,0.0,0.0]
     ticker = 10
-    while True:
-        events = pygame.event.get()
-        for event in events:
-            if event.type == QUIT:
-                break
-            if event.type == KEYDOWN: 
-                if event.key == K_UP:
-                    degrees[0] += 10
-                if event.key == K_DOWN:
-                    degrees[0] -= 10
-                if event.key == K_RIGHT:
-                    degrees[1] += 10
-                if event.key == K_LEFT:
-                    degrees[1] -= 10
-        #degrees[0] += 10
-        #degrees[0] %= 360
-        """ Simply flipping creates flicker
-        but redrawing followed by flipping removes the flicker """ 
-        rotate(degrees, K, Rt, width, height, img) # includes flip()
-        #pygame.display.flip()
-        clock.tick(ticker)
-        #time.sleep(0.1)
+    translate_object = True
+    if translate_object:
+        while True:
+            events = pygame.event.get()
+            for event in events:
+                if event.type == QUIT:
+                    break
+                if event.type == KEYDOWN:
+                    if event.key == K_UP:
+                        change[2] -= 0.1
+                    if event.key == K_DOWN:
+                        change[2] += 0.1
+                    if event.key == K_RIGHT:
+                        change[0] -= 0.1
+                    if event.key == K_LEFT:
+                        change[0] += 0.1
+            """ Simply flipping creates flicker
+            but redrawing followed by flipping removes the flicker """
+            translate(change, K, Rt, width, height, img)
+            clock.tick(ticker)
+    else:
+        while True:
+            events = pygame.event.get()
+            for event in events:
+                if event.type == QUIT:
+                    break
+                if event.type == KEYDOWN:
+                    if event.key == K_UP:
+                        change[0] += 10
+                    if event.key == K_DOWN:
+                        change[0] -= 10
+                    if event.key == K_RIGHT:
+                        change[1] += 10
+                    if event.key == K_LEFT:
+                        change[1] -= 10
+            """ Simply flipping creates flicker
+            but redrawing followed by flipping removes the flicker """
+            rotate(change, K, Rt, width, height, img) # includes flip()
+            clock.tick(ticker)
