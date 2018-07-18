@@ -37,7 +37,7 @@ def compute_homography():
     return H
 
 
-def compute_camera_matrix_1(K):
+def compute_camera_matrix_1(K, H):
     # 3D points at plane z=0 with sides of length 0.2
     box = cube.cube_points([0,0,0.1],0.1)
     # project bottom square in first image
@@ -85,7 +85,7 @@ def plot_rectangles(im1, im2):
 def compute_and_save_K_Rt():
     H = compute_homography()
     K = camera.my_calibration((2048, 1152))
-    cam1, box = compute_camera_matrix_1(K)
+    cam1, box = compute_camera_matrix_1(K, H)
     cam2 = compute_camera_matrix_2(cam1, K, box, H)
     with open('../../data/ar_camera_mag.pkl','wb') as f:
         pickle.dump(K,f)
