@@ -81,13 +81,16 @@ def plot_rectangles(im1, im2):
     plot(pts2[0]/pts2[2], pts2[1]/pts2[2], lw=3, color="red")
     plt.show()
 
-if __name__ == "__main__":
+
+def compute_and_save_K_Rt():
     H = compute_homography()
     K = camera.my_calibration((2048, 1152))
     cam1, box = compute_camera_matrix_1(K)
     cam2 = compute_camera_matrix_2(cam1, K, box, H)
-
     with open('../../data/ar_camera_mag.pkl','wb') as f:
         pickle.dump(K,f)
         pickle.dump(dot(linalg.inv(K),cam2.P),f)
 
+
+if __name__ == "__main__":
+    compute_and_save_K_Rt()
